@@ -1,4 +1,4 @@
-package com.millrocious.chatapp.chat;
+package com.millrocious.chatapp.model;
 
 import lombok.*;
 
