@@ -1,4 +1,4 @@
-package com.millrocious.chatapp.model;
+package com.millrocious.chatapp.entity.chat;
 
 public enum MessageType {
     CHAT,

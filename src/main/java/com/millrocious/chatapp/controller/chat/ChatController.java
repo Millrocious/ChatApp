@@ -1,7 +1,7 @@
-package com.millrocious.chatapp.controller;
+package com.millrocious.chatapp.controller.chat;
 
 
-import com.millrocious.chatapp.model.ChatMessage;
+import com.millrocious.chatapp.entity.chat.ChatMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;

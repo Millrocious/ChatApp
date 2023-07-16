@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS chat_message (
+    id BIGINT NOT NULL PRIMARY KEY,
+    content VARCHAR(255) NOT NULL,
+    sender VARCHAR(255) NOT NULL,
+    message_type VARCHAR(50) NOT NULL,
+    update_date TIMESTAMP NOT NULL,
+    create_date TIMESTAMP NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS _user (
+    id BIGINT NOT NULL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    user_role VARCHAR(50) NOT NULL,
+    update_date TIMESTAMP NOT NULL,
+    create_date TIMESTAMP NOT NULL
+);

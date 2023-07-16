@@ -1,7 +1,8 @@
 package com.millrocious.chatapp.config;
 
-import com.millrocious.chatapp.model.ChatMessage;
-import com.millrocious.chatapp.model.MessageType;
+import com.millrocious.chatapp.entity.chat.ChatMessage;
+import com.millrocious.chatapp.entity.chat.MessageType;
+import com.millrocious.chatapp.repository.ChatMessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -13,18 +14,19 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 @RequiredArgsConstructor
 public class WebSocketEventListener {
     private final SimpMessageSendingOperations messageTemplate;
+    private final ChatMessageRepository chatMessageRepository;
 
     @EventListener
-    public void handleWebSocketDisconnectListener(
-            SessionDisconnectEvent event
-    ) {
+    public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        String username = (String)headerAccessor.getSessionAttributes().get("username");
+        String username = (String) headerAccessor.getSessionAttributes().get("username");
         if (username != null) {
-            var chatMessage = ChatMessage.builder()
-                    .type(MessageType.LEAVE)
-                    .sender(username)
-                    .build();
+            ChatMessage chatMessage = new ChatMessage();
+            chatMessage.setContent("");
+            chatMessage.setSender(username);
+            chatMessage.setType(MessageType.LEAVE);
+
+            chatMessageRepository.save(chatMessage);
 
             messageTemplate.convertAndSend("/topic/public", chatMessage);
         }

@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  chat_app_db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: chat_app_db
+    ports:
+      - '5442:5432'
+    volumes:
+      - ./chat_app_db:/var/lib/postgresql/data
